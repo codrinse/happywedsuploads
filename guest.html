@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HappyWeds — Guest Upload</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="js/config.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Share your moments</h1>
+    </header>
+
+    <div class="card pink">
+      <div class="section">
+        <p class="subtitle">Upload</p>
+        <h2 class="title">Add photos and/or short videos</h2>
+      </div>
+
+      <div class="section">
+        <form id="uploadForm" class="stack"
+              action="" method="POST" enctype="multipart/form-data" target="hiddenFrame">
+          <input id="picker" type="file" name="files" accept="image/*,video/*" multiple />
+          <div class="row">
+            <button class="btn" type="submit">Upload</button>
+            <button class="btn secondary" type="button" id="resetBtn">Reset</button>
+          </div>
+          <div id="status" class="status"></div>
+        </form>
+        <iframe name="hiddenFrame" id="hiddenFrame" style="display:none;"></iframe>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section">
+        <p class="subtitle">What happens next?</p>
+        <p>Files go to a secure Drive folder. The couple can view & download from the private gallery.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/guest.js"></script>
+</body>
+</html>

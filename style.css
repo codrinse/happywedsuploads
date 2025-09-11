@@ -1,0 +1,76 @@
+/* === Palette === */
+:root{
+    --bg:#fdfbf7;
+    --beige-light:#f7f2eb;
+    --beige:#e0d6c9;
+    --brown:#5a4634;
+    --muted:#8a7663;
+    --gold-light:#fbe9b5;
+    --gold:#d4af37;
+    --gold-dark:#a67c00;
+    --line:#eadfd7;
+    --shadow:0 10px 30px rgba(90,70,52,.08);
+    --radius:16px;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0; color:var(--brown);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    background:
+      radial-gradient(100% 80% at 20% 10%, rgba(247,242,235,.7) 0%, transparent 60%),
+      radial-gradient(70% 60% at 90% 0%, rgba(232,223,211,.6) 0%, transparent 70%),
+      var(--bg);
+  }
+  .wrap{ max-width:980px; margin:0 auto; padding:20px; }
+  
+  /* Header / Landing */
+  body.smart .sw-nav{
+    position:relative; top:20px; width:70%; margin:0 auto;
+    background:var(--beige); border:1px solid var(--line);
+    border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.08);
+  }
+  body.smart .sw-wrap--nav{ width:100%; padding:12px 20px; display:flex; justify-content:center; }
+  body.smart .sw-brand{ display:flex; align-items:center; gap:8px; font-family:"Playfair Display", serif; font-weight:600; font-size:20px; }
+  body.smart .sw-star{ font-size:26px; color:var(--gold); transform:translateY(2px); }
+  body.smart .sw-logo{ letter-spacing:.5px; color:var(--beige-light); }
+  
+  body.smart .sw-hero{ padding:56px 0 24px; text-align:center; }
+  .couple-names{ font-family:"Playfair Display", serif; font-weight:700; font-size:48px; margin:12px 0; color:var(--brown); }
+  .couple-names .ampersand{
+    background:linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 2px 6px rgba(212,175,55,.4);
+  }
+  .sw-cta{ display:flex; gap:10px; justify-content:center; margin:18px 0 10px; }
+  .sw-btn{ display:inline-flex; align-items:center; justify-content:center; padding:12px 20px; border-radius:999px; border:1px solid #efd9ba; background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark)); color:#fff; font-weight:600; box-shadow:0 4px 12px rgba(212,175,55,.4); text-decoration:none; }
+  .sw-btn--outline{ background:#fff; color:var(--brown); border:1px solid var(--line); box-shadow:none; }
+  
+  .sw-footer{
+    background:var(--beige); color:var(--brown);
+    width:60%; margin:40px auto 20px; padding:16px 20px;
+    text-align:center; border:1px solid var(--line); border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.08);
+  }
+  .footer-star{ color:var(--gold); }
+  
+  /* Cards / Sections */
+  .card{ border:1px solid var(--line); background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); }
+  .card.pink{ background:linear-gradient(180deg,#fff 0%, var(--beige-light) 100%); }
+  .section{ padding:16px 16px 14px; border-bottom:1px solid var(--line); }
+  .section:last-child{ border-bottom:none; }
+  .subtitle{ margin:0 0 6px; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.12em; }
+  .title{ margin:0; font-size:20px; }
+  .stack{ display:flex; flex-direction:column; gap:12px; }
+  
+  .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  button,.btn{ appearance:none; border:none; cursor:pointer; font-weight:700; padding:12px 16px; border-radius:12px; }
+  .btn{ background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark)); color:#fff; border:1px solid var(--gold-dark); box-shadow:0 4px 12px rgba(212,175,55,.35); }
+  .btn.secondary{ background:#fff; color:var(--brown); border:1px solid var(--line); box-shadow:none; }
+  button[disabled]{ opacity:.6; cursor:not-allowed; }
+  .status{ min-height:18px; color:var(--muted); }
+  
+  /* Gallery grid */
+  .masonry{ display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:10px; }
+  .tile{ position:relative; overflow:hidden; border-radius:12px; background:var(--beige-light); border:1px solid var(--line); }
+  .masonry img,.masonry video{ display:block; width:100%; height:180px; object-fit:cover; background:#000; }
+  .empty{ text-align:center; padding:28px 16px; color:var(--muted); }
+  
