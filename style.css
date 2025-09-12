@@ -33,7 +33,7 @@
   body.smart .sw-wrap--nav{ width:100%; padding:12px 20px; display:flex; justify-content:center; }
   body.smart .sw-brand{ display:flex; align-items:center; gap:8px; font-family:"Playfair Display", serif; font-weight:600; font-size:20px; }
   body.smart .sw-star{ font-size:26px; color:var(--gold); transform:translateY(2px); }
-  body.smart .sw-logo{ letter-spacing:.5px; color:var(--beige-light); }
+  body.smart .sw-logo{ text-align:center; border:1px solid var(--line); border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.08); letter-spacing:.5px; color:var(--beige-light); }
   
   body.smart .sw-hero{ padding:56px 0 24px; text-align:center; }
   .couple-names{ font-family:"Playfair Display", serif; font-weight:700; font-size:48px; margin:12px 0; color:var(--brown); }
