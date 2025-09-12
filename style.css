@@ -77,22 +77,25 @@
   /* Stylish file button */
   .file-btn {
     display: inline-block;
-    background: var(--brown);        /* chocolate brown */
-    color: var(--beige-light);       /* beige text */
+    background: #4b3621;        /* chocolate brown */
+    color: #f5f0e6;      /* beige text */
     font-size: 16px;
     font-weight: 600;
     padding: 14px 22px;
     border-radius: 12px;
     cursor: pointer;
     text-align: center;
-    transition: background 0.2s, transform 0.1s;
-    width: 100%;                     /* full width on mobile */
+    transition: background-color 0.2s, transform 0.1s;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: 100%;                /* full width on small screens */
+    max-width: 280px;           /* not too wide on desktop */
   }
 
   .file-btn:hover {
-    background: #4d3a2a;              /* slightly darker brown */
+    background: #3b2a17;              /* slightly darker brown */
   }
 
   .file-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
   }
