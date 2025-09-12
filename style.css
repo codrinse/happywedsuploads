@@ -63,8 +63,14 @@
   
   .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
   button,.btn{ appearance:none; border:none; cursor:pointer; font-weight:700; padding:12px 16px; border-radius:12px; }
-  .btn{ background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark)); color:#fff; border:1px solid var(--gold-dark); box-shadow:0 4px 12px rgba(212,175,55,.35); }
-  .btn.secondary{ background:#fff; color:var(--brown); border:1px solid var(--line); box-shadow:none; }
+  .btn{ background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark)); color:#fff; border:1px solid var(--gold-dark); box-shadow:0 4px 12px rgba(212,175,55,.35); 
+    width: 65%;                /* full width on small screens */
+    max-width: 130px;           /* not too wide on desktop */
+  }
+  .btn.secondary{ background:#fff; color:var(--brown); border:1px solid var(--line); box-shadow:none;     
+    width: 35%;                /* full width on small screens */
+    max-width: 120px;           /* not too wide on desktop */
+  }
   button[disabled]{ opacity:.6; cursor:not-allowed; }
   .status{ min-height:18px; color:var(--muted); }
   
