@@ -22,7 +22,9 @@
       <div class="section">
         <form id="uploadForm" class="stack"
               action="" method="POST" enctype="multipart/form-data" target="hiddenFrame">
-          <input id="picker" type="file" name="files[]" accept="image/*,video/*" multiple />
+          <input id="picker" type="file" name="files[]" accept="image/*,video/mp4,video/quicktime" multiple hidden />
+          <label for="picker" class="file-btn">Choose photos / videos</label>
+          <small class="note" id="chosenText">No files selected yet.</small>
           <div class="row">
             <button class="btn" type="submit">Upload</button>
             <button class="btn secondary" type="button" id="resetBtn">Reset</button>
@@ -36,7 +38,7 @@
     <div class="card">
       <div class="section">
         <p class="subtitle">What happens next?</p>
-        <p>Files go to a secure Drive folder. The couple can view & download from the private gallery.</p>
+        <p>Files go to a secure folder. The couple can view & download them anytime from the private gallery.</p>
       </div>
     </div>
   </div>
