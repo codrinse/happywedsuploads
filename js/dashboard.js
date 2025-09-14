@@ -88,16 +88,19 @@
         img.style.maxHeight = '100%';
         img.referrerPolicy = 'no-referrer';
         img.onerror = function () {
-          img.parentNode && img.parentNode.removeChild(img);
+          if (img.parentNode) img.parentNode.removeChild(img);
           var a = document.createElement('a');
           a.textContent = 'Open image';
-          a.href = WEB_APP + '?action=file&id=' + encodeURIComponent(f.id) +
-                   '&token=' + encodeURIComponent(TOKEN);
-          a.target = '_blank';
-          a.rel = 'noopener';
+          var fileUrl = WEB_APP + '?action=file&id=' + encodeURIComponent(f.id) +
+                        '&token=' + encodeURIComponent(TOKEN) + '&download=true';
+          a.href = fileUrl;
           a.style.color = '#fff';
+          a.addEventListener('click', function(e){
+            e.preventDefault();
+            triggerDownload(fileUrl);
+          });
           mediaWrap.appendChild(a);
-        };
+        };        
         mediaWrap.appendChild(img);
       }
        else if (isVid) {
@@ -107,16 +110,19 @@
         v.style.maxWidth = '100%';
         v.style.maxHeight = '100%';
         v.onerror = function () {
-          v.parentNode && v.parentNode.removeChild(v);
+          if (v.parentNode) v.parentNode.removeChild(v);
           var a2 = document.createElement('a');
           a2.textContent = 'Open video';
-          a2.href = WEB_APP + '?action=file&id=' + encodeURIComponent(f.id) +
-                    '&token=' + encodeURIComponent(TOKEN);
-          a2.target = '_blank';
-          a2.rel = 'noopener';
+          var fileUrl = WEB_APP + '?action=file&id=' + encodeURIComponent(f.id) +
+                        '&token=' + encodeURIComponent(TOKEN);
+          a2.href = fileUrl;
           a2.style.color = '#fff';
+          a2.addEventListener('click', function(e){
+            e.preventDefault();
+            triggerDownload(fileUrl);     // <-- use hidden iframe, no new tab
+          });
           mediaWrap.appendChild(a2);
-        };
+        };        
         mediaWrap.appendChild(v);
       } else {
         var span = document.createElement('span');
