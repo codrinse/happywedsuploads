@@ -44,15 +44,13 @@
   
     // Message textarea appears only after clicking "Post a message"
     if (showMsgBtn && textForm){
-      textForm.classList.add('hidden'); // ensure hidden on load
-      showMsgBtn.addEventListener('click', function(){
-        textForm.classList.toggle('hidden');
-        if (!textForm.classList.contains('hidden')) {
-          // focus the textarea when opening
-          setTimeout(function(){ msgIn && msgIn.focus(); }, 0);
-        }
-      });
-    }
+        textForm.classList.add('hidden'); // ensure hidden on load
+        showMsgBtn.addEventListener('click', function(){
+          textForm.classList.remove('hidden');
+          showMsgBtn.style.display = 'none';   // Hides the button
+          if (msgIn) setTimeout(function(){ msgIn.focus(); }, 0);
+        });
+      }
   
     // ----- Feed render -----
     function render(items){

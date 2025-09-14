@@ -454,3 +454,41 @@ button#dlAll.sw-btn-gold{
   resize: vertical;
   min-height: 60px;
 }
+
+/* Weddingram feed layout */
+.wg-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* center horizontally */
+  gap: 24px;             /* spacing between posts */
+}
+
+.wg-tile {
+  width: 100%;
+  max-width: 500px;      /* centered card width */
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.wg-tile img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wg-cap {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--brown);
+  border-top: 1px solid var(--line);
+}
+
+.wg-text {
+  padding: 20px;
+  font-size: 16px;
+  color: var(--brown);
+  text-align: center;
+}
