@@ -346,3 +346,76 @@ button#dlAll.sw-btn-gold{
   object-fit: cover;       /* IG-style crop */
   display: block;
 }
+/* Weddingram forms */
+.wg-posts{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 680px){
+  .wg-posts{ grid-template-columns: 1fr; }
+}
+.wg-form{
+  border:1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+}
+.wg-form-title{
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: var(--brown);
+}
+#wgPhoto { display:block; margin: 6px 0 8px; }
+#wgCaption, #wgMessage{
+  width: 100%;
+  border:1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+#wgCaption:focus, #wgMessage:focus{
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212,175,55,.18);
+}
+.wg-status{ margin-top: 8px; color: var(--muted); font-size: 13px; }
+
+/* Weddingram grid (IG-like squares) */
+.wg-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+@media (max-width: 720px){ .wg-grid{ grid-template-columns: repeat(2, 1fr);} }
+@media (max-width: 420px){ .wg-grid{ grid-template-columns: 1fr 1fr;} }
+
+.wg-tile{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+  display:flex; align-items:center; justify-content:center;
+}
+.wg-tile img, .wg-tile video{
+  width: 100%; height: 100%; object-fit: cover; display:block;
+}
+.wg-tile.wg-text{
+  background: linear-gradient(180deg, #fff, var(--beige-light));
+  border: 1px solid var(--line);
+  color: var(--brown);
+  padding: 12px;
+  align-items: flex-start; justify-content: flex-start;
+}
+.wg-tile.wg-text p{
+  margin: 0; font-size: 14px; line-height: 1.4;
+}
+
+/* Optional caption overlay for photos */
+.wg-cap{
+  position:absolute; left:0; right:0; bottom:0;
+  background: linear-gradient(transparent, rgba(0,0,0,.55));
+  color:#fff; padding: 8px 10px; font-size: 13px;
+}

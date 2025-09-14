@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Weddingram — Guests Gallery</title>
+  <title>Weddingram</title>
   <link rel="stylesheet" href="style.css" />
   <script src="js/config.js"></script>
 </head>
@@ -13,15 +13,40 @@
       <div class="gallery-head">
         <div>
           <p class="subtitle">Weddingram</p>
-          <h2 class="title">Guests live feed. A glimpse into our party.</h2>
+          <h2 class="title">Public feed</h2>
         </div>
       </div>
     </header>
 
+    <!-- Post boxes -->
+    <section class="card">
+      <div class="section">
+        <div class="wg-posts">
+          <!-- Photo + caption -->
+          <form id="wgPhotoForm" class="wg-form" enctype="multipart/form-data">
+            <h3 class="wg-form-title">Share a photo</h3>
+            <input id="wgPhoto" type="file" name="file" accept="image/*" required />
+            <input id="wgCaption" type="text" maxlength="2200" placeholder="Caption (optional)" />
+            <button class="sw-btn-ig" type="submit">Upload photo</button>
+            <div class="wg-status" id="wgPhotoStatus"></div>
+          </form>
+
+          <!-- Text message only -->
+          <form id="wgTextForm" class="wg-form">
+            <h3 class="wg-form-title">Say something</h3>
+            <textarea id="wgMessage" rows="3" maxlength="2200" placeholder="Your message…"></textarea>
+            <button class="sw-btn" type="submit">Post message</button>
+            <div class="wg-status" id="wgTextStatus"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feed -->
     <section class="card">
       <div class="section">
         <div id="wgGrid" class="wg-grid"></div>
-        <div id="wgEmpty" class="empty" style="display:none;">No photos yet.</div>
+        <div id="wgEmpty" class="empty" style="display:none;">No posts yet.</div>
       </div>
     </section>
   </div>
