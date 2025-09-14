@@ -24,6 +24,19 @@
 
   if (dlAllWrap) dlAllWrap.classList.add('hidden');
 
+  // Reuse one hidden iframe to trigger downloads without opening new tabs
+  function triggerDownload(url){
+    var f = document.getElementById('hwDlFrame');
+    if (!f) {
+      f = document.createElement('iframe');
+      f.id = 'hwDlFrame';
+      f.style.display = 'none';
+      document.body.appendChild(f);
+    }
+    // cache-buster to ensure the request fires each time
+    f.src = url + (url.indexOf('?') > -1 ? '&' : '?') + 'dlts=' + Date.now();
+  }
+
   // ---- JSONP helper (avoids CORS for listing) ----
   function jsonp(url, cb) {
     var cbName = 'hw_cb_' + Math.random().toString(36).slice(2);
@@ -132,14 +145,17 @@
 
       var dl = document.createElement('a');
       dl.className = 'icon-btn';
-      dl.href = WEB_APP + '?action=file&id=' + encodeURIComponent(f.id) +
-               '&token=' + encodeURIComponent(TOKEN) + '&download=true';
+      var fileUrl = WEB_APP + '?action=file&id=' + encodeURIComponent(f.id) + '&token=' + encodeURIComponent(TOKEN) + '&download=true';
+      dl.href = fileUrl;
       dl.title = 'Download';
-      dl.target = '_blank';
-      dl.rel = 'noopener';
 
       // simple inline SVG (download)
       dl.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9m0 0l4-4m-4 4L8 8M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+      dl.addEventListener('click', function(e){
+        e.preventDefault();
+        triggerDownload(fileUrl);
+      });
 
       bar.appendChild(dl);
       tile.appendChild(mediaWrap);
@@ -168,7 +184,8 @@
   if (dlAllBtn) {
     dlAllBtn.addEventListener('click', function () {
       if (!TOKEN) { alert('Please login first.'); return; }
-      window.location.href = WEB_APP + '?action=zip&token=' + encodeURIComponent(TOKEN);
+      var zipUrl = WEB_APP + '?action=zip&token=' + encodeURIComponent(TOKEN);
+      triggerDownload(zipUrl);
     });
   }
 
