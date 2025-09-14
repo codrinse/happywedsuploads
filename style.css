@@ -419,3 +419,33 @@ button#dlAll.sw-btn-gold{
   background: linear-gradient(transparent, rgba(0,0,0,.55));
   color:#fff; padding: 8px 10px; font-size: 13px;
 }
+
+/* Styled choose file button (Weddingram) */
+.file-btn {
+  display: inline-block;
+  background: var(--brown);
+  color: var(--beige-light);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s, transform 0.1s;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 280px;
+}
+.file-btn:hover { background: #3b2a17; }
+.file-btn:active { transform: scale(0.95); }
+
+/* Hide elements */
+.hidden { display: none !important; }
+
+/* Caption + message inputs */
+#wgCaption, #wgMessage {
+  margin-top: 12px;
+  resize: vertical;
+  min-height: 60px;
+}

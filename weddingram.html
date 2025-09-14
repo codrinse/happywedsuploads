@@ -25,19 +25,30 @@
           <!-- Photo + caption -->
           <form id="wgPhotoForm" class="wg-form" enctype="multipart/form-data">
             <h3 class="wg-form-title">Share a photo</h3>
-            <input id="wgPhoto" type="file" name="file" accept="image/*" required />
-            <input id="wgCaption" type="text" maxlength="2200" placeholder="Caption (optional)" />
-            <button class="sw-btn-ig" type="submit">Upload photo</button>
+            
+            <!-- Stylish file input -->
+            <input id="wgPhoto" type="file" name="file" accept="image/*,video/mp4,video/quicktime" hidden />
+            <label for="wgPhoto" class="file-btn">📷 Choose a photo / video</label>
+            
+            <!-- Caption hidden until file chosen -->
+            <textarea id="wgCaption" class="hidden sw-input" maxlength="2200" placeholder="Write a caption..."></textarea>
+            
+            <button class="sw-btn-ig" type="submit">Upload</button>
             <div class="wg-status" id="wgPhotoStatus"></div>
           </form>
 
           <!-- Text message only -->
-          <form id="wgTextForm" class="wg-form">
+          <div class="wg-form">
             <h3 class="wg-form-title">Say something</h3>
-            <textarea id="wgMessage" rows="3" maxlength="2200" placeholder="Your message…"></textarea>
-            <button class="sw-btn" type="submit">Post message</button>
-            <div class="wg-status" id="wgTextStatus"></div>
-          </form>
+            <button id="showMsgBtn" class="sw-btn secondary" type="button">💌 Post a message</button>
+            
+            <!-- Message form hidden until button pressed -->
+            <form id="wgTextForm" class="stack hidden">
+              <textarea id="wgMessage" class="sw-input" rows="3" maxlength="2200" placeholder="Your message…"></textarea>
+              <button class="sw-btn" type="submit">Share message</button>
+              <div class="wg-status" id="wgTextStatus"></div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
