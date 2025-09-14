@@ -22,16 +22,15 @@
       <div class="section">
         <form id="uploadForm" class="stack"
               action="" method="POST" enctype="multipart/form-data" target="hiddenFrame">
-          <input id="picker" type="file" name="files[]" accept="image/*,video/mp4,video/quicktime" multiple hidden />
+          <input id="picker" type="file" name="files[]" accept="image/*,video/*" multiple hidden capture/>
           <label for="picker" class="file-btn">📷 Choose photos / videos</label>
-          <small class="note" id="chosenText">No files selected yet.</small>
+          <small class="note" id="chosenText" aria-live="polite">No files selected yet.</small>
           <div class="row">
-            <button class="btn" type="submit">Upload</button>
+            <button class="btn" type="submit" disabled>Upload</button>
             <button class="btn secondary" type="button" id="resetBtn">Reset</button>
           </div>
           <div id="status" class="status" aria-live="polite"></div>
         </form>
-        <iframe name="hiddenFrame" id="hiddenFrame" style="display:none;"></iframe>
       </div>
     </div>
 
