@@ -139,3 +139,68 @@
   .file-btn:active {
     transform: scale(0.8);
   }
+
+  /* Utility */
+.hidden { display: none !important; }
+
+/* Login card */
+.login-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding:16px;
+}
+
+.sw-login{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  justify-content:flex-start;   /* set to center if you prefer */
+  flex-wrap:wrap;               /* keeps it nice on phones */
+}
+
+.sw-input{
+  height:46px;
+  padding:0 14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  font-size:16px;
+  min-width:240px;              /* good visual size */
+  outline:none;
+}
+.sw-input:focus{
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212,175,55,.18);
+}
+
+/* Gold buttons for dashboard */
+.sw-btn-gold{
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+  color:#fff;
+  border:1px solid var(--gold-dark);
+  border-radius:12px;
+  padding:12px 24px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 6px 14px rgba(212,175,55,.35);
+  transition: box-shadow .2s ease;
+}
+.sw-btn-gold:hover{ box-shadow: 0 8px 18px rgba(212,175,55,.45); }
+
+.sw-btn-gold-outline{
+  background:#fff;
+  color:var(--brown);
+  border:1px solid var(--gold);
+  border-radius:12px;
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* Login feedback */
+.login-msg{
+  margin-top:8px;
+  font-size:14px;
+  color: var(--muted);
+}
