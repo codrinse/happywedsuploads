@@ -1,22 +1,25 @@
-(function(){
+// weddingram.js
+(function () {
     var cfg = window.HW_CONFIG || {};
     var WEB_APP = cfg.WEB_APP_URL || '';
     if (!WEB_APP) { console.error('[weddingram] Missing WEB_APP_URL'); return; }
   
+    // Feed
     var grid  = document.getElementById('wgGrid');
     var empty = document.getElementById('wgEmpty');
   
-    // Forms
-    var photoForm   = document.getElementById('wgPhotoForm');
-    var photoInput  = document.getElementById('wgPhoto');
-    var captionIn   = document.getElementById('wgCaption');
-    var photoStatus = document.getElementById('wgPhotoStatus');
+    // Forms & controls
+    var photoForm    = document.getElementById('wgPhotoForm');
+    var photoInput   = document.getElementById('wgPhoto');
+    var captionIn    = document.getElementById('wgCaption');
+    var photoStatus  = document.getElementById('wgPhotoStatus');
   
-    var textForm    = document.getElementById('wgTextForm');
-    var msgIn       = document.getElementById('wgMessage');
-    var textStatus  = document.getElementById('wgTextStatus');
+    var showMsgBtn   = document.getElementById('showMsgBtn');
+    var textForm     = document.getElementById('wgTextForm');
+    var msgIn        = document.getElementById('wgMessage');
+    var textStatus   = document.getElementById('wgTextStatus');
   
-    // JSONP helper
+    // JSONP helper (no CORS headaches)
     function jsonp(url, cb){
       var name = 'wg_cb_' + Math.random().toString(36).slice(2);
       window[name] = function(data){ try{ cb(data); } finally{ delete window[name]; } };
@@ -28,6 +31,30 @@
   
     function setText(el, msg){ if (el) el.textContent = msg || ''; }
   
+    // ----- UI behaviors -----
+  
+    // Caption shows only after a file is chosen
+    if (photoInput && captionIn){
+      captionIn.classList.add('hidden'); // ensure hidden on load
+      photoInput.addEventListener('change', function(){
+        var hasFile = photoInput.files && photoInput.files.length > 0;
+        captionIn.classList.toggle('hidden', !hasFile);
+      });
+    }
+  
+    // Message textarea appears only after clicking "Post a message"
+    if (showMsgBtn && textForm){
+      textForm.classList.add('hidden'); // ensure hidden on load
+      showMsgBtn.addEventListener('click', function(){
+        textForm.classList.toggle('hidden');
+        if (!textForm.classList.contains('hidden')) {
+          // focus the textarea when opening
+          setTimeout(function(){ msgIn && msgIn.focus(); }, 0);
+        }
+      });
+    }
+  
+    // ----- Feed render -----
     function render(items){
       grid.innerHTML = '';
       var list = Array.isArray(items) ? items : [];
@@ -65,55 +92,75 @@
     function loadFeed(){
       jsonp(WEB_APP + '?action=wg_list&ts=' + Date.now(), function(res){
         if (res && !res.error) render(res);
-        else setText(empty, 'Could not load posts.');
+        else { empty.style.display = 'block'; setText(empty, 'Could not load posts.'); }
       });
     }
   
-    // Submit: photo + caption (multipart)
+    // ----- Submit: photo + caption (multipart) -----
     if (photoForm){
       photoForm.addEventListener('submit', function(e){
         e.preventDefault();
-        if (!photoInput.files || !photoInput.files.length) { setText(photoStatus, 'Choose a photo.'); return; }
+        if (!photoInput || !photoInput.files || !photoInput.files.length) {
+          setText(photoStatus, 'Please choose a photo or video.');
+          return;
+        }
+  
         setText(photoStatus, 'Uploading…');
+        var submitBtn = photoForm.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
   
         var fd = new FormData();
         fd.append('action', 'wg_post');
-        fd.append('caption', captionIn.value || '');
+        fd.append('caption', (captionIn && captionIn.value) ? captionIn.value : '');
         fd.append('file', photoInput.files[0]);
   
         fetch(WEB_APP, { method:'POST', body: fd })
-          .then(function(r){ return r.json ? r.json() : null; })
-          .catch(function(){})
-          .finally(function(){
-            setText(photoStatus, 'Thanks! Your photo was posted.');
-            photoInput.value = ''; captionIn.value = '';
+          .then(function(r){ return (r && r.json) ? r.json() : null; })
+          .then(function(){
+            setText(photoStatus, 'Thanks! Your post was added.');
+            if (photoInput) photoInput.value = '';
+            if (captionIn){
+              captionIn.value = '';
+              captionIn.classList.add('hidden');
+            }
             loadFeed();
+          })
+          .catch(function(){
+            setText(photoStatus, 'Upload failed. Please try again.');
+          })
+          .finally(function(){
+            if (submitBtn) submitBtn.disabled = false;
           });
       });
     }
   
-    // Submit: text-only message (JSON)
+    // ----- Submit: text-only message (JSON) -----
     if (textForm){
       textForm.addEventListener('submit', function(e){
         e.preventDefault();
-        var msg = (msgIn.value || '').trim();
+        var msg = (msgIn && msgIn.value ? msgIn.value.trim() : '');
         if (!msg) { setText(textStatus, 'Write a message first.'); return; }
+  
         setText(textStatus, 'Posting…');
+        var submitBtn2 = textForm.querySelector('button[type="submit"]');
+        if (submitBtn2) submitBtn2.disabled = true;
   
         fetch(WEB_APP + '?action=wg_text', {
           method:'POST',
           headers:{ 'Content-Type':'application/json' },
           body: JSON.stringify({ message: msg })
         })
-        .catch(function(){})
+        .then(function(){ setText(textStatus, 'Your message is live!'); })
+        .catch(function(){ setText(textStatus, 'Could not post. Try again.'); })
         .finally(function(){
-          setText(textStatus, 'Your message is live!');
-          msgIn.value = '';
+          if (msgIn) msgIn.value = '';
+          if (submitBtn2) submitBtn2.disabled = false;
           loadFeed();
         });
       });
     }
   
-    loadFeed(); // initial
+    // Initial load
+    loadFeed();
   })();
   
