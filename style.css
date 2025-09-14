@@ -48,7 +48,6 @@
   .sw-cta{ display:flex; gap:10px; justify-content:center; margin:18px 0 10px; }
   .sw-btn{ display:inline-flex; align-items:center; justify-content:center; padding:12px 20px; border-radius:999px; border:1px solid #efd9ba; background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark)); color:#fff; font-weight:600; box-shadow:0 4px 12px rgba(212,175,55,.4); text-decoration:none; }
   .sw-btn--outline{ background:#fff; color:var(--brown); border:1px solid var(--line); box-shadow:none; }
-  .sw-btn--weddingram{ background:linear-gradient(135deg,var(--beige-light),var(--beige),var(--muted),var(--brown)); }
 
   .sw-hero .sw-eyebrow {
     font-family: "Playfair Display", serif;
@@ -293,3 +292,29 @@ button#dlAll.sw-btn-gold{
 .icon-btn:active{ transform: translateY(1px); }
 .icon-btn svg{ display:block; }
 #hwDlFrame { display:none; width:0; height:0; border:0; }
+
+/* Stack CTAs (Weddingram on top, Private below) */
+.sw-cta.sw-cta--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Instagram-like gradient button */
+.sw-btn-ig {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 999px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  background: radial-gradient(120% 120% at 30% 10%,
+    #ffd86f 0%, #ff0069 35%, #b400ff 70%, #4c3aff 100%);
+}
+.sw-btn-ig:hover { filter: brightness(1.03); }
