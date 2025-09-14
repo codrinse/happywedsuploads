@@ -183,7 +183,10 @@
     }
 
     if (loginSection)  loginSection.style.display = 'none';
-    if (gallerySection) gallerySection.style.display = 'block';
+    if (gallerySection) {
+      gallerySection.classList.remove('hidden');  // <-- important
+      gallerySection.style.display = 'block';
+    }
     if (dlAllWrap) dlAllWrap.classList.remove('hidden'); // <-- show ZIP button after login
     loadList();
   }
