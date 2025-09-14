@@ -215,40 +215,44 @@
   border-bottom: 1px solid var(--line); /* subtle separator */
 }
 
-.gallery-head h2 {
-  margin-top: 6px;       /* space below "GALLERY" */
-  margin-bottom: 8px;    /* more breathing room */
+.section.gallery-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;                 /* space between left group and button */
+  padding: 14px 16px 14px;   /* inner breathing room */
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;       /* space below header */
 }
 
-/* Spacing between subtitle and title */
-.gallery-head .subtitle {
-  margin-bottom: 6px;  /* adds breathing room */
-  letter-spacing: 1px;
+.gh-left {                   /* the left stack (subtitle + title) */
+  display: flex;
+  flex-direction: column;
+}
+
+.gh-left .subtitle {
+  margin: 0 0 8px 0;         /* spacing between “Gallery” and h2 */
+  letter-spacing: 0.12em;
+}
+
+.gh-left .title {
+  margin: 0;                 /* remove default h2 margin */
+}
+
+/* Smaller header download button */
+#dlAll {
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(212,175,55,.25);
+}
+
+#dlAllWrap {
+  align-self: center; /* aligns nicely in the header */
 }
 
 /* Download-all wrapper hidden by default */
 .hidden {
   display: none !important;
-}
-
-/* Empty state styling with icon */
-#empty {
-  font-size: 15px;
-  color: var(--brown);
-  opacity: 0.9;
-  display: none; /* JS shows this when no files */
-}
-
-/* Smaller header download button */
-#dlAll {
-  margin-left: 24px;    /* keep button away from text */
-  padding: 10px 18px;   /* make button taller */
-  font-size: 14px;      /* slightly bigger text */
-  border-radius: 6px;
-  line-height: 1.2;
-  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.25); /* softer shadow */
-}
-
-#dlAllWrap {
-  align-self: center; /* aligns nicely in the header */
 }
