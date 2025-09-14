@@ -445,9 +445,6 @@ button#dlAll.sw-btn-gold{
 .file-btn:hover { background: #3b2a17; }
 .file-btn:active { transform: scale(0.95); }
 
-/* Hide elements */
-.hidden { display: none !important; }
-
 /* Caption + message inputs */
 #wgCaption, #wgMessage {
   margin-top: 12px;
@@ -455,17 +452,17 @@ button#dlAll.sw-btn-gold{
   min-height: 60px;
 }
 
-/* Weddingram feed layout */
-.wg-grid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;   /* center horizontally */
-  gap: 24px;             /* spacing between posts */
+/* ---- Weddingram: single-column centered feed ---- */
+.wg-grid{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 24px !important;
 }
 
-.wg-tile {
+.wg-tile{
   width: 100%;
-  max-width: 500px;      /* centered card width */
+  max-width: 560px;               /* nice centered width */
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -473,22 +470,25 @@ button#dlAll.sw-btn-gold{
   overflow: hidden;
 }
 
-.wg-tile img {
+.wg-tile img{
   width: 100%;
   height: auto;
   display: block;
 }
 
-.wg-cap {
+.wg-cap{
   padding: 10px 14px;
   font-size: 14px;
   color: var(--brown);
   border-top: 1px solid var(--line);
 }
 
-.wg-text {
+.wg-text{
   padding: 20px;
   font-size: 16px;
   color: var(--brown);
   text-align: center;
 }
+
+/* hide helper */
+.hidden { display: none !important; }

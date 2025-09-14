@@ -1,4 +1,4 @@
-// weddingram.js
+// weddingram.js — Weddingram feed (single-column + better form toggling)
 (function () {
     var cfg = window.HW_CONFIG || {};
     var WEB_APP = cfg.WEB_APP_URL || '';
@@ -8,18 +8,23 @@
     var grid  = document.getElementById('wgGrid');
     var empty = document.getElementById('wgEmpty');
   
-    // Forms & controls
-    var photoForm    = document.getElementById('wgPhotoForm');
-    var photoInput   = document.getElementById('wgPhoto');
-    var captionIn    = document.getElementById('wgCaption');
-    var photoStatus  = document.getElementById('wgPhotoStatus');
+    // Photo form
+    var photoForm   = document.getElementById('wgPhotoForm');
+    var photoInput  = document.getElementById('wgPhoto');
+    var captionIn   = document.getElementById('wgCaption');
+    var photoStatus = document.getElementById('wgPhotoStatus');
+    var chooseWrap  = document.getElementById('wgChooseWrap'); // wrapper for the choose button
   
-    var showMsgBtn   = document.getElementById('showMsgBtn');
-    var textForm     = document.getElementById('wgTextForm');
-    var msgIn        = document.getElementById('wgMessage');
-    var textStatus   = document.getElementById('wgTextStatus');
+    // Text form
+    var textForm    = document.getElementById('wgTextForm');
+    var msgIn       = document.getElementById('wgMessage');
+    var textStatus  = document.getElementById('wgTextStatus');
+    var showMsgBtn  = document.getElementById('wgShowMsg'); // "Post a message" gold button
   
-    // JSONP helper (no CORS headaches)
+    // Small helper
+    function setText(el, msg){ if (el) el.textContent = msg || ''; }
+  
+    // JSONP (for list)
     function jsonp(url, cb){
       var name = 'wg_cb_' + Math.random().toString(36).slice(2);
       window[name] = function(data){ try{ cb(data); } finally{ delete window[name]; } };
@@ -29,30 +34,7 @@
       document.body.appendChild(s);
     }
   
-    function setText(el, msg){ if (el) el.textContent = msg || ''; }
-  
-    // ----- UI behaviors -----
-  
-    // Caption shows only after a file is chosen
-    if (photoInput && captionIn){
-      captionIn.classList.add('hidden'); // ensure hidden on load
-      photoInput.addEventListener('change', function(){
-        var hasFile = photoInput.files && photoInput.files.length > 0;
-        captionIn.classList.toggle('hidden', !hasFile);
-      });
-    }
-  
-    // Message textarea appears only after clicking "Post a message"
-    if (showMsgBtn && textForm){
-        textForm.classList.add('hidden'); // ensure hidden on load
-        showMsgBtn.addEventListener('click', function(){
-          textForm.classList.remove('hidden');
-          showMsgBtn.style.display = 'none';   // Hides the button
-          if (msgIn) setTimeout(function(){ msgIn.focus(); }, 0);
-        });
-      }
-  
-    // ----- Feed render -----
+    // Render feed (single column)
     function render(items){
       grid.innerHTML = '';
       var list = Array.isArray(items) ? items : [];
@@ -65,7 +47,7 @@
   
         if (entry.type === 'photo' && entry.webContentLink){
           var img = document.createElement('img');
-          img.src = entry.webContentLink;
+          img.src = entry.thumbnailLink || entry.webContentLink;
           img.alt = 'Photo';
           img.loading = 'lazy';
           img.referrerPolicy = 'no-referrer';
@@ -94,73 +76,82 @@
       });
     }
   
-    // ----- Submit: photo + caption (multipart) -----
+    // ---- UI toggles ----
+  
+    // Show caption only after a file is picked
+    if (captionIn && chooseWrap) {
+      // Hide caption at start
+      captionIn.classList.add('hidden');
+      photoInput.addEventListener('change', function(){
+        // show/hide caption depending on selection
+        if (photoInput.files && photoInput.files.length) {
+          captionIn.classList.remove('hidden');
+        } else {
+          captionIn.classList.add('hidden');
+        }
+      });
+    }
+  
+    // Message textarea appears only after clicking "Post a message"
+    if (showMsgBtn && textForm){
+      textForm.classList.add('hidden'); // ensure hidden on load
+      showMsgBtn.addEventListener('click', function(){
+        textForm.classList.remove('hidden');
+        showMsgBtn.style.display = 'none';   // hide the button when form is visible
+        if (msgIn) setTimeout(function(){ msgIn.focus(); }, 0);
+      });
+    }
+  
+    // Submit: photo + caption (multipart)
     if (photoForm){
       photoForm.addEventListener('submit', function(e){
         e.preventDefault();
-        if (!photoInput || !photoInput.files || !photoInput.files.length) {
-          setText(photoStatus, 'Please choose a photo or video.');
-          return;
-        }
-  
+        if (!photoInput.files || !photoInput.files.length) { setText(photoStatus, 'Choose a photo or video.'); return; }
         setText(photoStatus, 'Uploading…');
-        var submitBtn = photoForm.querySelector('button[type="submit"]');
-        if (submitBtn) submitBtn.disabled = true;
   
         var fd = new FormData();
         fd.append('action', 'wg_post');
-        fd.append('caption', (captionIn && captionIn.value) ? captionIn.value : '');
+        fd.append('caption', captionIn.value || '');
         fd.append('file', photoInput.files[0]);
   
         fetch(WEB_APP, { method:'POST', body: fd })
-          .then(function(r){ return (r && r.json) ? r.json() : null; })
-          .then(function(){
-            setText(photoStatus, 'Thanks! Your post was added.');
-            if (photoInput) photoInput.value = '';
-            if (captionIn){
-              captionIn.value = '';
-              captionIn.classList.add('hidden');
-            }
-            loadFeed();
-          })
-          .catch(function(){
-            setText(photoStatus, 'Upload failed. Please try again.');
-          })
+          .then(function(r){ return r.json ? r.json() : null; })
+          .catch(function(){})
           .finally(function(){
-            if (submitBtn) submitBtn.disabled = false;
+            setText(photoStatus, 'Thanks! Your post is live.');
+            // reset inputs
+            photoInput.value = '';
+            if (captionIn){ captionIn.value = ''; captionIn.classList.add('hidden'); }
+            loadFeed();
           });
       });
     }
   
-    // Submit: text-only message (FormData, no preflight)
+    // Submit: text-only message (JSON)
     if (textForm){
-        textForm.addEventListener('submit', function(e){
+      textForm.addEventListener('submit', function(e){
         e.preventDefault();
         var msg = (msgIn.value || '').trim();
         if (!msg) { setText(textStatus, 'Write a message first.'); return; }
         setText(textStatus, 'Posting…');
-    
-        var fd = new FormData();
-        fd.append('action', 'wg_text');      // Apps Script router
-        fd.append('message', msg);
-    
-        // no headers, no preflight
-        fetch(WEB_APP, {
-            method: 'POST',
-            body: fd,
-            // mode: 'no-cors' is optional here; you don't read the response anyway
-            // mode: 'no-cors'
+  
+        fetch(WEB_APP + '?action=wg_text', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ message: msg })
         })
-        .catch(function(){ /* ignore */ })
+        .catch(function(){})
         .finally(function(){
-            setText(textStatus, 'Your message is live!');
-            msgIn.value = '';
-            loadFeed();
+          setText(textStatus, 'Your message is live!');
+          // reset + hide form + show button again
+          msgIn.value = '';
+          textForm.classList.add('hidden');
+          if (showMsgBtn) showMsgBtn.style.display = '';
+          loadFeed();
         });
-        });
+      });
     }
   
-    // Initial load
-    loadFeed();
+    loadFeed(); // initial
   })();
   
