@@ -204,3 +204,35 @@
   font-size:14px;
   color: var(--muted);
 }
+
+/* Spacing between subtitle and title */
+.gallery-head .subtitle {
+  margin-bottom: 6px;  /* adds breathing room */
+  letter-spacing: 1px;
+}
+
+/* Download-all wrapper hidden by default */
+.hidden {
+  display: none !important;
+}
+
+/* Empty state styling with icon */
+#empty {
+  font-size: 15px;
+  color: var(--brown);
+  opacity: 0.9;
+  display: none; /* JS shows this when no files */
+}
+
+/* Smaller header download button */
+#dlAll {
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.25); /* softer shadow */
+}
+
+#dlAllWrap {
+  align-self: center; /* aligns nicely in the header */
+}

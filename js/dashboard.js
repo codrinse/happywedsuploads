@@ -22,6 +22,8 @@
     return;
   }
 
+  if (dlAllWrap) dlAllWrap.classList.add('hidden');
+
   // ---- JSONP helper (avoids CORS for listing) ----
   function jsonp(url, cb) {
     var cbName = 'hw_cb_' + Math.random().toString(36).slice(2);
