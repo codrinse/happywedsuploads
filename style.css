@@ -44,8 +44,8 @@
   .sw-cta{ display:flex; gap:10px; justify-content:center; margin:18px 0 10px; }
   .sw-btn{ display:inline-flex; align-items:center; justify-content:center; padding:12px 20px; border-radius:999px; border:1px solid #efd9ba; background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark)); color:#fff; font-weight:600; box-shadow:0 4px 12px rgba(212,175,55,.4); text-decoration:none; }
   .sw-btn--outline{ background:#fff; color:var(--brown); border:1px solid var(--line); box-shadow:none; }
-  
   .sw-eyebrow{ font-family:"Playfair Display", serif; font-weight:700; font-size:28px; margin:12px 0; color:var(--brown); }
+
   .sw-footer{
     background:var(--beige); color:var(--brown);
     width:60%; margin:40px auto 20px; padding:16px 20px;
