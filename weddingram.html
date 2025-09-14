@@ -23,19 +23,19 @@
       <div class="section">
         <div class="wg-posts">
           <!-- Photo + caption -->
-          <form id="wgPhotoForm" class="wg-form" enctype="multipart/form-data">
-            <h3 class="wg-form-title">Share a photo</h3>
+            <form id="wgPhotoForm" class="wg-form" enctype="multipart/form-data">
+                <h3 class="wg-form-title">Share a photo</h3>
             
-            <!-- Stylish file input -->
-            <input id="wgPhoto" type="file" name="file" accept="image/*,video/mp4,video/quicktime" hidden />
-            <label for="wgPhoto" class="file-btn">📷 Choose a photo / video</label>
+                <!-- Hide native input, style the label -->
+                <input id="wgPhoto" type="file" name="file" accept="image/*,video/*" hidden />
+                <label for="wgPhoto" class="sw-btn-gold">📸 Choose a photo / video</label>
             
-            <!-- Caption hidden until file chosen -->
-            <textarea id="wgCaption" class="hidden sw-input" maxlength="2200" placeholder="Write a caption..."></textarea>
+                <!-- Caption stays hidden until a file is chosen -->
+                <input id="wgCaption" type="text" maxlength="2200" placeholder="Caption (optional)" class="hidden" />
             
-            <button class="sw-btn-ig" type="submit">Upload</button>
-            <div class="wg-status" id="wgPhotoStatus"></div>
-          </form>
+                <button class="sw-btn-gold" type="submit">Upload</button>
+                <div class="wg-status" id="wgPhotoStatus"></div>
+            </form>
 
           <!-- Text message only -->
           <div class="wg-form">

@@ -202,6 +202,11 @@
   cursor:pointer;
 }
 
+/* Apply same look to file input label */
+label.sw-btn-gold {
+  cursor: pointer;
+}
+
 /* Login feedback */
 .login-msg{
   margin-top:8px;
