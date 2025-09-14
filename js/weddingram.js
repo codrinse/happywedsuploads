@@ -134,30 +134,32 @@
       });
     }
   
-    // ----- Submit: text-only message (JSON) -----
+    // Submit: text-only message (FormData, no preflight)
     if (textForm){
-      textForm.addEventListener('submit', function(e){
+        textForm.addEventListener('submit', function(e){
         e.preventDefault();
-        var msg = (msgIn && msgIn.value ? msgIn.value.trim() : '');
+        var msg = (msgIn.value || '').trim();
         if (!msg) { setText(textStatus, 'Write a message first.'); return; }
-  
         setText(textStatus, 'Posting…');
-        var submitBtn2 = textForm.querySelector('button[type="submit"]');
-        if (submitBtn2) submitBtn2.disabled = true;
-  
-        fetch(WEB_APP + '?action=wg_text', {
-          method:'POST',
-          headers:{ 'Content-Type':'application/json' },
-          body: JSON.stringify({ message: msg })
+    
+        var fd = new FormData();
+        fd.append('action', 'wg_text');      // Apps Script router
+        fd.append('message', msg);
+    
+        // no headers, no preflight
+        fetch(WEB_APP, {
+            method: 'POST',
+            body: fd,
+            // mode: 'no-cors' is optional here; you don't read the response anyway
+            // mode: 'no-cors'
         })
-        .then(function(){ setText(textStatus, 'Your message is live!'); })
-        .catch(function(){ setText(textStatus, 'Could not post. Try again.'); })
+        .catch(function(){ /* ignore */ })
         .finally(function(){
-          if (msgIn) msgIn.value = '';
-          if (submitBtn2) submitBtn2.disabled = false;
-          loadFeed();
+            setText(textStatus, 'Your message is live!');
+            msgIn.value = '';
+            loadFeed();
         });
-      });
+        });
     }
   
     // Initial load
