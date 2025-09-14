@@ -205,6 +205,19 @@
   color: var(--muted);
 }
 
+/* Spacing adjustments for dashboard gallery header */
+.gallery-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;   /* space below header */
+}
+
+.gallery-head h2 {
+  margin-top: 6px;       /* space below "GALLERY" */
+  margin-bottom: 6px;    /* more breathing room */
+}
+
 /* Spacing between subtitle and title */
 .gallery-head .subtitle {
   margin-bottom: 6px;  /* adds breathing room */
@@ -231,6 +244,7 @@
   border-radius: 6px;
   line-height: 1.2;
   box-shadow: 0 2px 6px rgba(212, 175, 55, 0.25); /* softer shadow */
+  margin-left: 20px;
 }
 
 #dlAllWrap {
