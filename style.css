@@ -256,3 +256,29 @@
 .hidden {
   display: none !important;
 }
+
+/* bar under each tile (no filename, just an icon) */
+.tile-bar{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  padding:6px 8px;
+  background:#fff;
+  border-top:1px solid var(--line);
+}
+
+/* minimalist icon button */
+.icon-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  color: var(--brown);
+  text-decoration:none;
+  transition: background-color .15s ease, transform .05s ease;
+}
+.icon-btn:hover{ background: var(--beige-light); }
+.icon-btn:active{ transform: translateY(1px); }
+.icon-btn svg{ display:block; }

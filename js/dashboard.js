@@ -68,11 +68,12 @@
 
       if (isImg) {
         var img = document.createElement('img');
-        img.src = f.webContentLink; // inline if folder is public-view
-        img.alt = f.name;
+        img.src = f.thumbnailLink || f.webContentLink;
+        img.alt = 'Photo';
         img.loading = 'lazy';
         img.style.maxWidth = '100%';
         img.style.maxHeight = '100%';
+        img.referrerPolicy = 'no-referrer';
         img.onerror = function () {
           img.parentNode && img.parentNode.removeChild(img);
           var a = document.createElement('a');
@@ -85,7 +86,8 @@
           mediaWrap.appendChild(a);
         };
         mediaWrap.appendChild(img);
-      } else if (isVid) {
+      }
+       else if (isVid) {
         var v = document.createElement('video');
         v.src = f.webContentLink;
         v.controls = true;
@@ -112,6 +114,7 @@
       }
 
       var bar = document.createElement('div');
+      bar.className = 'tile-bar'; // styled in CSS
       bar.style.display = 'flex';
       bar.style.justifyContent = 'space-between';
       bar.style.alignItems = 'center';
@@ -128,15 +131,17 @@
       name.style.maxWidth = '70%';
 
       var dl = document.createElement('a');
+      dl.className = 'icon-btn';
       dl.href = WEB_APP + '?action=file&id=' + encodeURIComponent(f.id) +
                '&token=' + encodeURIComponent(TOKEN) + '&download=true';
-      dl.textContent = 'Download';
+      dl.title = 'Download';
       dl.target = '_blank';
       dl.rel = 'noopener';
 
-      bar.appendChild(name);
-      bar.appendChild(dl);
+      // simple inline SVG (download)
+      dl.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9m0 0l4-4m-4 4L8 8M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+      bar.appendChild(dl);
       tile.appendChild(mediaWrap);
       tile.appendChild(bar);
       grid.appendChild(tile);
